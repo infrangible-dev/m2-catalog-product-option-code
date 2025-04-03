@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+
+<!--
+ * @author      Andreas Knollmann
+ * @copyright   2014-2025 Softwareentwicklung Andreas Knollmann
+ * @license     http://www.opensource.org/licenses/mit-license.php MIT
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Sales\Api\OrderRepositoryInterface">
+        <plugin name="infrangible_catalogproductoptioncode" type="Infrangible\CatalogProductOptionCode\Plugin\Sales\Api\OrderRepositoryInterface"/>
+    </type>
+    <type name="Magento\Catalog\Model\Product\Type\AbstractType">
+        <plugin name="infrangible_catalogproductoptioncode" type="Infrangible\CatalogProductOptionCode\Plugin\Catalog\Model\Product\Type\AbstractType"/>
+    </type>
+</config>
