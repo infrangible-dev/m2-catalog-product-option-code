@@ -6,7 +6,6 @@ namespace Infrangible\CatalogProductOptionCode\Helper;
 
 use FeWeDev\Base\Arrays;
 use Magento\Catalog\Api\Data\CustomOptionExtension;
-use Magento\Catalog\Api\Data\ProductCustomOptionInterface;
 use Magento\Catalog\Api\Data\ProductOptionExtension;
 use Magento\Catalog\Model\CustomOptions\CustomOption;
 use Magento\Catalog\Model\Product\Option;
@@ -26,10 +25,14 @@ class Data
     /** @var Option */
     protected $productOption;
 
-    public function __construct(Arrays $arrays, Option $productOption)
+    /** @var array */
+    protected $valueTypes;
+
+    public function __construct(Arrays $arrays, Option $productOption, array $valueTypes)
     {
         $this->arrays = $arrays;
         $this->productOption = $productOption;
+        $this->valueTypes = $valueTypes;
     }
 
     public function addCodeAndLabelToOrder(OrderInterface $order): void
@@ -108,7 +111,10 @@ class Data
 
                     $group = $this->productOption->getGroupByType($itemProductOptionsOptionType);
 
-                    if ($group === ProductCustomOptionInterface::OPTION_GROUP_SELECT) {
+                    if (in_array(
+                        $group,
+                        $this->valueTypes
+                    )) {
                         $itemProductOptionsOptionValueCode = $this->arrays->getValue(
                             $itemProductOptionsOption,
                             'option_value_code'
